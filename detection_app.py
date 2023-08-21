@@ -2,8 +2,26 @@ import tkinter as tk
 
 
 def start_detection():
-    # Add your code for "Start Detection" here
-    pass
+    # Create a new window for detection
+    detection_window = tk.Toplevel(root)
+    detection_window.title("Detection Page")
+
+    # Add a label with summary text
+    summary_text = "This detection system is designed to find anomalous attacks on blockchain networks, with a focus on Bitcoin attacks."
+    summary_label = tk.Label(
+        detection_window, text=summary_text, font=("Arial", 12))
+    summary_label.pack(pady=20)
+
+    # Function to handle file selection
+    def select_file():
+        file_path = filedialog.askopenfilename()
+        # Here, you can use the selected file_path for your detection logic
+        print("Selected file:", file_path)
+
+    # Add a button for file selection
+    select_file_button = tk.Button(
+        detection_window, text="Select File to Detect", command=select_file, **button_style)
+    select_file_button.pack(pady=10)
 
 
 def train_model():
@@ -37,7 +55,7 @@ button_style = {
 }
 
 start_button = tk.Button(root, text="Start Detection",
-                         command=start_detection, **button_style)
+                         command=select_file, **button_style)
 start_button.pack(pady=10)
 
 train_button = tk.Button(root, text="Train Model",
