@@ -20,7 +20,7 @@ def open_detection_page(selected_file):
     selected_file_label.pack(pady=10)
 
     # Add text with a message
-    message_text = "This file will not go through the detection process. Any anomalous attacks will be declared."
+    message_text = "This file will go through the detection process. Any anomalous attacks will be declared."
     message_label = tk.Label(
         detection_window, text=message_text, font=("Arial", 12))
     message_label.pack(pady=10)
