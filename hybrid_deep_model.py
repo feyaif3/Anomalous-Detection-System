@@ -20,7 +20,8 @@ cnn_input = keras.Input(shape=(features.shape[1],), name='cnn_input')
 cnn_layer = layers.Dense(32, activation='relu')(cnn_input)
 
 # Define Autoencoder Component
-autoencoder_input = keras.Input(shape=(features.shape[1],), name='autoencoder_input')
+autoencoder_input = keras.Input(
+    shape=(features.shape[1],), name='autoencoder_input')
 encoded = layers.Dense(128, activation='relu')(autoencoder_input)
 decoded = layers.Dense(features.shape[1], activation='sigmoid')(encoded)
 
@@ -35,19 +36,21 @@ autoencoder.fit(normal_data, normal_data, epochs=10, batch_size=32)
 threshold = 0.1
 
 # Detect anomalies using the autoencoder
-reconstruction_errors = np.mean(np.square(features - autoencoder.predict(features)), axis=1)
+reconstruction_errors = np.mean(
+    np.square(features - autoencoder.predict(features)), axis=1)
 anomalies = (reconstruction_errors > threshold).astype(int)
 
 # Combine Components
-combined_input = layers.concatenate([lstm_layer, cnn_layer, autoencoder.output])
+combined_input = layers.concatenate(
+    [lstm_layer, cnn_layer, autoencoder.output])
 
 # Create the Output Layer for Anomaly Detection
 output_layer = layers.Dense(1, activation='sigmoid')(combined_input)
 
 # Create the Hybrid Model
-model = keras.Model(inputs=[lstm_input, cnn_input, autoencoder_input], outputs=output_layer)
+model = keras.Model(inputs=[lstm_input, cnn_input,
+                    autoencoder_input], outputs=output_layer)
 
 # Compile the Model
-model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-# Train the Model
+model.compile(optimizer='adam', loss='binary_crossentropy',
+              metrics=['accuracy'])
