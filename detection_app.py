@@ -8,14 +8,18 @@ import numpy as np
 # Global variable to store the selected algorithm
 selected_algorithm = ""
 
+
 def start_detection(file_path):
     # Add your code for "Start Detection" here
     print("Starting detection with file:", file_path)
     detection_completed()
 
+
 def detection_completed():
     # Display a pop-up message
-    messagebox.showinfo("Detection Complete", "This file contains suspicious or anomalous activity")
+    messagebox.showinfo("Detection Complete",
+                        "This file contains suspicious or anomalous activity")
+
 
 def open_detection_page(selected_file):
     # Create a new window for detection
@@ -44,10 +48,12 @@ def open_detection_page(selected_file):
         detection_window, text="Cancel", command=detection_window.destroy, **button_style)
     cancel_button.pack(pady=10)
 
+
 def select_file():
     file_path = filedialog.askopenfilename()
     if file_path:
         open_detection_page(file_path)
+
 
 def train_model():
     # Create a new window for training algorithm selection
@@ -55,12 +61,13 @@ def train_model():
     train_window.title("Select Algorithm to Train Deep Model")
 
     # Add a label to instruct the user
-    label = tk.Label(train_window, text="Select an algorithm to train the deep model:")
+    label = tk.Label(
+        train_window, text="Select an algorithm to train the deep model:")
     label.pack(pady=10)
 
     # Add radio buttons for algorithm selection
     reinforcement_learning_button = tk.Radiobutton(train_window, text="Deep Reinforcement Learning",
-                                                  variable=selected_algorithm, value="Reinforcement Learning")
+                                                   variable=selected_algorithm, value="Reinforcement Learning")
     autoencoders_button = tk.Radiobutton(train_window, text="Multistage Autoencoders",
                                          variable=selected_algorithm, value="Autoencoders")
 
@@ -73,6 +80,7 @@ def train_model():
                                command=train_completed, **button_style)
     confirm_button.pack(pady=10)
 
+
 def train_completed():
     global selected_algorithm
     # Display a pop-up message
@@ -81,8 +89,10 @@ def train_completed():
     else:
         messagebox.showerror("Error", "Please select an algorithm first.")
 
+
 def exit_app():
     root.destroy()
+
 
 # Create the main window
 root = tk.Tk()
@@ -118,6 +128,7 @@ exit_button.pack(pady=10)
 
 # Initialize the selected_algorithm variable
 selected_algorithm = tk.StringVar()
+
 
 # Start the Tkinter main loop
 root.mainloop()
